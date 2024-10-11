@@ -2,11 +2,16 @@ import UseCaseInterface from "../../@shared/usecase/use-case.interface";
 import PaymentFacadeInterface, {
   PaymentFacadeInputDto,
   PaymentFacadeOutputDto,
-} from "./facade.interface";
+} from "./payment.facade.interface";
 
 export default class PaymentFacade implements PaymentFacadeInterface {
-  constructor(private processPaymentUseCase: UseCaseInterface) {}
+  private _processPaymentUseCase: UseCaseInterface;
+
+  constructor(processPaymentUseCase: UseCaseInterface) {
+    this._processPaymentUseCase = processPaymentUseCase;
+  }
+
   process(input: PaymentFacadeInputDto): Promise<PaymentFacadeOutputDto> {
-    return this.processPaymentUseCase.execute(input);
+    return this._processPaymentUseCase.execute(input);
   }
 }
